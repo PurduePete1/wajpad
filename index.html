@@ -36,6 +36,7 @@
       <!--<button id="themeToggle">🌙 Dark Mode</button>-->
       <button id="resetBtn">🔄 Reset Template</button>
       <button id="downloadBtn">💾 Download</button>
+      <button onclick="document.getElementById('console-output').textContent = '';">🧹 Clear Console</button>
     </div>
 
     <select id="themeSelector">
@@ -61,6 +62,9 @@
     <div id="editor"></div>
     <div id="resizer"></div>
     <iframe id="preview"></iframe>
+    <div id="console">
+        <div id="console-output"></div>
+      </div>
   </main>
 
   

@@ -52,17 +52,6 @@ const savedTheme = localStorage.getItem("wajpadTheme") || "tomorrow_night_bright
 themeSelector.value = savedTheme;
 
 editor.setTheme("ace/theme/" + savedTheme);
-
-//const themeColors = {
-//    monokai: "#272822",
-//    tomorrow_night_bright: "#000000",
-//    dracula: "#282a36",
-//    solarized_dark: "#002b36",
-//    solarized_light: "#fdf6e3",
-//    tomorrow: "#ffffff",
-//    cobalt: "#002240",
-//    chaos: "#161616"
-//  };
   
   themeSelector.addEventListener("change", (e) => {
     const selectedTheme = e.target.value;
@@ -100,7 +89,25 @@ editor.setOptions({
 function updatePreview() {
     const html = injectVirtualFiles(files.html, files.css, files.js);
     preview.srcdoc = html;
-}
+  
+    // Wait for iframe to load, then inject the console override
+    preview.onload = () => {
+      preview.contentWindow.console.log = (...args) => {
+        window.postMessage({ type: 'wajpad-log', logType: 'log', args }, '*');
+      };
+      preview.contentWindow.console.error = (...args) => {
+        window.postMessage({ type: 'wajpad-log', logType: 'error', args }, '*');
+      };
+      preview.contentWindow.console.warn = (...args) => {
+        window.postMessage({ type: 'wajpad-log', logType: 'warn', args }, '*');
+      };
+    };
+  
+    // Reset the console output
+    const consoleOutput = document.getElementById('console-output');
+    consoleOutput.textContent = '';
+  }
+  
 
 // Tab switching
 fileTabs.forEach(tab => {
@@ -234,6 +241,20 @@ document.addEventListener('mousemove', function (e) {
     preview.style.width = `${container.offsetWidth - newEditorWidth - resizer.offsetWidth - offsetLeft}px`;
   }
 });
+
+window.addEventListener('message', (event) => {
+    if (event.data.type === 'wajpad-log') {
+      const output = document.getElementById('console-output');
+      const tag = {
+        log: '',
+        warn: '[Warning] ',
+        error: '[Error] '
+      }[event.data.logType];
+  
+      output.textContent += tag + event.data.args.join(' ') + '\n';
+      output.scrollTop = output.scrollHeight;
+    }
+  });  
 
 document.addEventListener('mouseup', function () {
   if (isDragging) {

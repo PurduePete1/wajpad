@@ -151,6 +151,23 @@
     background: #ffffff;
   }
 
+  #console {
+    background: rgba(0, 0, 0, 0.6);
+    color: #f1f1f1;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 10px;
+    height: 150px;
+    overflow-y: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+  }
+  
+  #console-output {
+    white-space: pre-wrap;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }  
+
   .branding {
     display: flex;
     align-items: center;
