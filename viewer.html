@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Viewer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      gap: 5px;
+      height: 100vh;
+    }
+    textarea {
+      width: 100%;
+      height: 100%;
+      font-family: monospace;
+      font-size: 14px;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+    iframe {
+      grid-column: 1 / -1;
+      height: 300px;
+      border: none;
+    }
+    #controls {
+      grid-column: 1 / -1;
+      padding: 10px;
+      background: #f0f0f0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <button onclick="updatePreview()">Run Code</button>
+  </div>
+  <textarea id="htmlBox" placeholder="HTML"></textarea>
+  <textarea id="cssBox" placeholder="CSS"></textarea>
+  <textarea id="jsBox" placeholder="JavaScript"></textarea>
+  <iframe id="preview"></iframe>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const sample = params.get('sample');
+
+    async function loadFile(path) {
+      const res = await fetch(path);
+      return res.ok ? res.text() : '';
+    }
+
+    async function loadSample(sampleName) {
+      const base = 'Examples/' + sampleName + '/' + sampleName;
+      const [html, css, js] = await Promise.all([
+        loadFile(base + '.html'),
+        loadFile(base + '.css'),
+        loadFile(base + '.js'),
+      ]);
+      document.getElementById('htmlBox').value = html;
+      document.getElementById('cssBox').value = css;
+      document.getElementById('jsBox').value = js;
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const html = document.getElementById('htmlBox').value;
+      const css = '<style>' + document.getElementById('cssBox').value + '</style>';
+      const js = '<script>' + document.getElementById('jsBox').value + '<\/script>';
+      const combined = html.replace('</head>', css + '</head>').replace('</body>', js + '</body>');
+      document.getElementById('preview').srcdoc = combined;
+    }
+
+    if (sample) {
+      loadSample(sample);
+    } else {
+      document.getElementById('htmlBox').value = '<h1>No sample selected</h1>';
+    }
+  </script>
+</body>
+</html>

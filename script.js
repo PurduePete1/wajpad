@@ -9,6 +9,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const decreaseFont = document.getElementById('decreaseFont');
   const fileTabs = document.querySelectorAll('#file-tabs button');
   const themeSelector = document.getElementById('themeSelector');
+  const sampleSelector = document.getElementById('sampleSelector');
+
+sampleSelector.addEventListener('change', (e) => {
+  const value = e.target.value;
+
+  if (!value) return;
+
+  const sampleURLs = {
+    sample1: 'bouncing-ball',
+    sample2: 'grid-layout',
+    sample3: 'interactive-buttons',
+    sample4: 'dark-mode-toggle',
+    sample5: 'char-counter'
+  };
+
+  const sampleURL = sampleURLs[value];
+  if (sampleURL) {
+    const viewerURL = `viewer.html?sample=${sampleURL}`;
+    window.open(viewerURL, '_blank'); // Opens in a new tab
+    sampleSelector.value = ''; // Reset dropdown
+  }
+});
 
   let currentFile = 'html';
   let fontSize = 14;

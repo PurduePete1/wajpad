@@ -225,14 +225,32 @@
     backdrop-filter: blur(6px);
     cursor: pointer;
     transition: background-color 0.3s ease;
+    appearance: none;
+  }
+
+  #sampleSelector {
+    background-color: rgba(255, 255, 255, 0.041);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Fira Code', monospace;
+    margin-left: 8px;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     appearance: none; /* Makes styling more consistent */
   }
 
   #themeSelector option {
-    background-color: rgba(20, 20, 20, 0.75); /* fallback for open dropdown */
+    background-color: rgba(20, 20, 20, 0.75); 
     color: white;
   }
 
+  #sampleSelector option {
+    background-color: rgba(20, 20, 20, 0.75); 
+    color: white;
+  }
 
   #themeSelector.glow-ring {
     box-shadow: 0 0 10px rgba(255, 184, 108, 0.9),

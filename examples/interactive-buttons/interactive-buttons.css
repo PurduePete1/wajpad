@@ -1,0 +1,14 @@
+button {
+  padding: 12px 20px;
+  background: purple;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+p {
+  font-family: monospace;
+  margin-top: 20px;
+  text-align: center;
+}
