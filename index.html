@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WajPad Pro — v1.0</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ext-language_tools.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-monokai.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-tomorrow_night_bright.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-dracula.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-solarized_dark.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-solarized_light.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-tomorrow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-cobalt.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/theme-chaos.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <div class="branding">
+      <img src="assets/logo_transparent.png" alt="WajPad Logo" />
+      <div>
+        <h1>WajPad Pro</h1>
+        <p class="tagline">Custom Made by Mr. Watjen</p>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="decreaseFont">A−</button>
+      <button id="increaseFont">A+</button>
+      <!--<button id="themeToggle">🌙 Dark Mode</button>-->
+      <button id="resetBtn">🔄 Reset Template</button>
+      <button id="downloadBtn">💾 Download</button>
+    </div>
+
+    <select id="themeSelector">
+        <option value="tomorrow_night_bright">VS Code Dark+</option>
+        <option value="monokai">Monokai</option>
+        <option value="dracula">Dracula</option>
+        <option value="solarized_dark">Solarized Dark</option>
+        <option value="solarized_light">Solarized Light</option>
+        <option value="tomorrow">Tomorrow Light</option>
+        <option value="cobalt">Cobalt</option>
+        <option value="chaos">Chaos (🔥 High Contrast)</option>
+      </select>
+      
+  </header>
+
+  <main>
+    <span id="modeDisplay" class="mode-label">HTML</span>
+    <aside id="file-tabs">
+      <button data-file="html" class="active">index.html</button>
+      <button data-file="css">style.css</button>
+      <button data-file="js">script.js</button>
+    </aside>
+    <div id="editor"></div>
+    <div id="resizer"></div>
+    <iframe id="preview"></iframe>
+  </main>
+
+  
+</body>
+</html>
